@@ -11,7 +11,8 @@ import (
 
 func GetTodos(list *data.List) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		c.JSON(200, gin.H{"todos": list})
+		result := list.GetAll()
+		c.JSON(http.StatusOK, result)
 	}
 }
 
@@ -38,7 +39,7 @@ func AddTodo(list *data.List) gin.HandlerFunc {
 
 		list.Add(todo)
 
-		c.JSON(200, gin.H{"todo": todo})
+		c.JSON(200, todo)
 	}
 }
 
@@ -64,7 +65,7 @@ func GetTodoById(list *data.List) gin.HandlerFunc {
 			return
 		}
 
-		c.JSON(200, gin.H{"todo": todo})
+		c.JSON(http.StatusOK, todo)
 	}
 }
 
@@ -95,6 +96,6 @@ func DeleteTodo(list *data.List) gin.HandlerFunc {
 			return
 		}
 
-		c.JSON(200, gin.H{"todo": todo})
+		c.JSON(http.StatusOK, todo)
 	}
 }
